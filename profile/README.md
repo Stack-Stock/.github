@@ -1,14 +1,234 @@
-## Hi there 👋
 
-Under construction
+# 📈 Stack & Stock  
+> News to Action — 뉴스를 소비하는 시대에서, 판단하는 시대로.
+
+## 📰 프로젝트 소개
+
+**Stack & Stock**은 실제 뉴스 데이터를 기반으로 한 하루 단위 경제 시뮬레이션 게임입니다.  
+플레이어는 하나의 책상 공간에서 휴대폰, TV, 신문 등 다양한 정보 오브젝트를 통해 뉴스를 접하고, 이를 해석하여 자산 운용 전략을 수립합니다.
+
+우리는 뉴스를 단순 소비 콘텐츠가 아닌 **의사결정의 재료**로 재구성합니다.  
+특히 사회 초년생과 대학생이 **실패 비용 없이 경제적 판단을 연습**할 수 있는 환경을 제공하는 것이 목표입니다.
+
+---
+
+## 🎯 기획 의도
+
+많은 청년들이 경제 뉴스에 관심은 있지만,  
+- 전문 용어는 어렵고  
+- 내 삶과의 연결고리를 찾기 힘들며  
+- 뉴스를 보는 행위가 실제 행동으로 이어지기는 어렵습니다.
+
+Stack & Stock은 실제 뉴스 데이터를 게임 시나리오로 재구성하여  
+> “뉴스 → 해석 → 선택 → 결과 확인”  
+의 반복 학습 구조를 제공합니다.
+
+이를 통해 플레이어는 정보의 가치를 판단하고,  
+자신의 선택에 책임지는 경험을 쌓게 됩니다.
+
+---
+
+## 🎮 게임 컨셉
+
+### 🏫 스토리라인
+**“패기로운 대학생의 등록금 쟁탈전”**
+
+플레이어는 16주(80일) 안에  
+🎯 **목표 금액 500만원**을 마련해야 합니다.
+
+뉴스를 기반으로 주식 투자와 전략적 행동을 수행하며  
+성공, 생존, 파산 등 다양한 엔딩으로 이어집니다.
+
+---
+
+## 🔁 게임 진행 흐름 (Daily Loop)
+
+### 1️⃣ 오전
+- 전날 투자 결과 자동 팝업
+- 자산 변동 및 종목별 차트 확인
+
+### 2️⃣ 오전 → 오후 전환
+- 랜덤 이벤트 발생
+- 이전 선택의 결과 확인
+
+### 3️⃣ 오후 행동 단계
+행동력(AP)을 전략적으로 사용하여 선택합니다.
+
+| 행동 | AP 소모 |
+|------|:--------:|
+| 📱 휴대폰 | 0 |
+| 📺 TV | 1 |
+| 📰 신문 | 2 |
+| 💻 투자 | 1 |
+| 📚 공부 | 1 |
+
+- 공부 3회 → ✨ 번뜩임 +1 (AP 추가 쿠폰)
+
+### 4️⃣ 턴 종료
+- “잠자기” 선택 시 하루 종료
+- 스냅샷 저장 및 DB 로그 기록
+
+---
+
+## ⚡ 핵심 시스템
+
+### 🧠 1. 행동력(AP) 시스템
+- 하루 기본 2 AP
+- 전략적 자원 배분 구조
+- 번뜩임 시스템으로 추가 선택 가능
+
+---
+
+### 📰 2. 정보 오브젝트(IO)
+
+| 오브젝트 | 특징 |
+|-----------|-------|
+| 📱 휴대폰 | 빠르지만 신뢰도 낮음 |
+| 📺 TV | 속보성, 저장 불가 |
+| 📰 신문 | 고신뢰, 상세 분석 |
+| 💻 노트북 | 투자 실행 인터페이스 |
+
+---
+
+### 📊 3. 주식 시장 구조
+
+- 총 30개 종목 (10개 산업 × 3개 기업)
+- 실제 뉴스 기반 경제 사건이 주가 변동 트리거로 작동
+- 기사 비연관 종목은 랜덤 변동
+
+---
+
+### 🎲 4. 돌발 이벤트 시스템
+
+#### ✅ 플러스 이벤트
+- 복권
+- 꿀알바
+- 100억 버튼
+
+#### ❌ 마이너스 이벤트
+- 불법 알바
+- 고액 봉투 은닉
+
+#### 🎭 랜덤 이벤트
+- 가족 모임
+
+---
+
+## 🤖 AI & 뉴스 데이터 파이프라인
+
+### 🔎 뉴스 벡터 임베딩
+- 매경미디어 1년치 뉴스 데이터 활용
+- Claude Embeddings API 사용
+- PostgreSQL 기반 벡터 DB
+
+### 🧩 시나리오 생성
+Claude API를 통해:
+- 매체별 톤앤매너 재구성
+- 주가 영향도 계산
+- 인과관계 설명 자동 생성
+
+### 📦 게임 시나리오 저장 구조 (예시)
+
+```json
+{
+  "event_id": "EV-202512-045",
+  "target_sector": "IT (AI)",
+  "impact_rate": 0.075,
+  "direction": "UP"
+}
+````
+
+---
+
+## 🗂 유저 플로우
+
+1. 회원가입 / 로그인
+2. 새로 시작하기 또는 이어하기
+3. 튜토리얼
+4. 본 게임 시작 (스냅샷 저장)
+5. 80일 플레이
+6. 엔딩 분기
+
+### 🏁 엔딩 종류
+
+| 구분  | 내용                 |
+| --- | ------------------ |
+| 대성공 | 목표 금액의 2배 이상       |
+| 성공  | 등록금 달성             |
+| 생존  | 목표 미달, 파산 아님       |
+| 파산  | 자산 마이너스            |
+| 히든  | 100억 엔딩 / 졸업 불가 엔딩 |
+
+---
+
+## 🏗 기술 스택
+
+### Backend
+
+* Java / Spring Boot (게임 로직, 자산 관리)
+* Python / FastAPI (뉴스 임베딩, AI 파이프라인)
+
+### Frontend
+
+* React
+
+### Database
+
+* PostgreSQL
+
+### AI & Infra
+
+* Claude API
+* Vector DB (PostgreSQL)
+* Jenkins (CI/CD)
+
+---
+
+## 👥 팀 구성 및 역할 분담
+
+| <img src="https://github.com/HYE77.png" width="120" /> | <img src="https://github.com/JasonKang97.png" width="120" /> | <img src="https://github.com/devSeodong.png" width="120" /> | <img src="https://github.com/skybluejaecho.png" width="120" /> |
+| :---: | :---: | :---: | :---: |
+| [이혜림](https://github.com/hye77) | [강진석](https://github.com/JasonKang97) | [김서형](https://github.com/devSeodong) | [조재봉](https://github.com/skybluejaecho) |
+| 팀장/BE | 데이터·AI | 데이터·AI | FE |
+
 
 <!--
-
-**Here are some ideas to get you started:**
-
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+| 역할     | 담당               |
+| ------ | ---------------- |
+| 데이터·AI | 뉴스 임베딩 및 시나리오 생성 |
+| 백엔드    | 게임 상태 관리, AP 시스템 |
+| 프론트엔드  | 인터랙션 UI          |
+| 인프라    | DB 설계 및 배포       |
 -->
+
+---
+
+## 🗓️ 프로젝트 진행 일정
+| 기간 | 진행 내용 |
+| :----: | :---------: |
+|  ~26.02.29 (예정)   | 기획 |
+| - | 개발 |
+|- | 테스트 및 QA |
+| 26.03.20 | 최종 발표 |
+
+---
+
+## 🚀 프로젝트 차별성
+
+✅ 실제 뉴스 데이터 기반 경제 시뮬레이션
+✅ 벡터 임베딩 기반 동적 시나리오 생성
+✅ Claude API 자동 가공 파이프라인
+✅ 안전한 경제 의사결정 훈련 환경 제공
+
+---
+
+## 🌟 기대 효과
+
+Stack & Stock은
+
+> 뉴스를 읽는 사람이 아니라, 해석하는 사람으로 성장하게 합니다.
+
+경제를 두려워하는 청년들에게
+실패 없는 연습 공간을 제공합니다.
+
+
